@@ -1,0 +1,19 @@
+Scripts/build-dmg.sh
+  s_da4b2480e75959::t_616c9107de6b2e 27,31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5f8129ea5ee0804e1d7e11623550ac11bcb0a753",
+  "prompts": {},
+  "sessions": {
+    "s_da4b2480e75959": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a5e8-3efe-7513-a417-b87831fb819d",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    }
+  }
+}
