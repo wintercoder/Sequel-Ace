@@ -2274,7 +2274,7 @@ sslCACertFileLocationEnabled:(sslCACertFileLocationEnabled != NSControlStateValu
 {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
 
-    [openPanel setAllowedContentTypes:@[[UTType typeWithFilenameExtension:@"plist"]]];
+    [openPanel setAllowedContentTypes:@[[UTType typeWithFilenameExtension:@"plist"], UTTypeJSON]];
 
     [openPanel beginSheetModalForWindow:[dbDocument parentWindowControllerWindow] completionHandler:^(NSInteger returnCode)
     {
@@ -4461,6 +4461,8 @@ static NSComparisonResult _compareFavoritesUsingKey(id favorite1, id favorite2, 
         [preparedImportData addObject:[self favoriteImportDictionaryByAssigningNewIDs:item]];
     }
 
+    SAJSONImportCredentials *credentials = [[SAJSONImportCredentials alloc] initWithItems:preparedImportData];
+
     NSMutableArray *importFavorites = [NSMutableArray array];
     [self collectFavoriteImportLeavesFromItems:preparedImportData intoArray:importFavorites];
 
@@ -4539,8 +4541,10 @@ static NSComparisonResult _compareFavoritesUsingKey(id favorite1, id favorite2, 
             // Process each duplicate based on selected action
             for (SPDuplicateImportItem *item in duplicateItems) {
                 if (item.action == SPDuplicateActionUpdate) {
-                    // Update existing (no password from plist imports)
+                    // Credentials are kept outside the persistent favorite dictionary.
                     [self updateFavoriteNode:item.duplicateNode withData:item.favorite password:nil];
+                    [credentials savePasswordForFavorite:[(SPFavoriteNode *)[item.duplicateNode representedObject] nodeFavorite] importedFavorite:item.favorite keychain:self->keychain];
+                    [SAJSONFavoritePlacement moveFavorite:item.duplicateNode path:[credentials groupPathForFavorite:item.favorite] controller:self->favoritesController];
                     [importedNodes addObject:item.duplicateNode];
                 }
                 // Create New entries stay in itemsToImport so grouped imports keep their structure.
@@ -4551,7 +4555,8 @@ static NSComparisonResult _compareFavoritesUsingKey(id favorite1, id favorite2, 
 
             // Add remaining imported items. This preserves imported groups while removing skipped or updated duplicate leaves.
             for (NSMutableDictionary *favorite in itemsToImport) {
-                SPTreeNode *newNode = [self->favoritesController addFavoriteNodeWithData:favorite asChildOfNode:nil];
+                SPTreeNode *newNode = [SAJSONFavoritePlacement addFavorite:favorite path:[credentials groupPathForFavorite:favorite] controller:self->favoritesController];
+                [credentials savePasswordForFavorite:favorite importedFavorite:favorite keychain:self->keychain];
                 [importedNodes addObject:newNode];
             }
 
@@ -4585,7 +4590,8 @@ static NSComparisonResult _compareFavoritesUsingKey(id favorite1, id favorite2, 
         NSMutableIndexSet *importedIndexSet = [NSMutableIndexSet indexSet];
 
         for (NSMutableDictionary *favorite in preparedImportData) {
-            SPTreeNode *newNode = [favoritesController addFavoriteNodeWithData:favorite asChildOfNode:nil];
+            SPTreeNode *newNode = [SAJSONFavoritePlacement addFavorite:favorite path:[credentials groupPathForFavorite:favorite] controller:favoritesController];
+            [credentials savePasswordForFavorite:favorite importedFavorite:favorite keychain:self->keychain];
             [importedNodes addObject:newNode];
         }
 

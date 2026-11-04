@@ -30,6 +30,7 @@
 
 #import "SPFavoritesImporter.h"
 #import "SPThreadAdditions.h"
+#import "sequel-ace-Swift.h"
 
 static NSString *SPOldPreferenceFileFavoritesKey = @"favorites";
 
@@ -72,6 +73,14 @@ static NSString *SPOldPreferenceFileFavoritesKey = @"favorites";
 		NSFileManager *fileManager = [NSFileManager defaultManager];
 
 		if ([fileManager fileExistsAtPath:[self importPath]]) {
+            if ([[[self.importPath pathExtension] lowercaseString] isEqualToString:@"json"]) {
+                NSError *error = nil;
+                NSData *data = [NSData dataWithContentsOfFile:self.importPath options:0 error:&error];
+                NSArray *favorites = data ? [SAJSONFavorites favoritesFromData:data error:&error] : nil;
+                if (favorites) [self _informDelegateOfImportDataAvailable:favorites];
+                else [self _informDelegateOfImportCompletion:error];
+                return;
+            }
 			importData = [[NSDictionary alloc] initWithContentsOfFile:[self importPath]];
 
 			NSArray *favorites = [importData valueForKey:SPFavoritesDataRootKey];

@@ -791,6 +791,10 @@
 		516E0690308F3B01007B81AA /* SADialogAuthPrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E068E308F3B01007B81AA /* SADialogAuthPrompt.swift */; };
 		516E0695308F3B24007B81AA /* SADialogAuthPromptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E0694308F3B24007B81AA /* SADialogAuthPromptTests.swift */; };
 		516E073A308F442C007B81AA /* SADialogAuthPrompt+MySQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E0738308F442C007B81AA /* SADialogAuthPrompt+MySQL.swift */; };
+		0E21F01532E0A4CF313ED5B7 /* SAJSONFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */; };
+		4AE4D151FC5BD3FBD68AE799 /* SAJSONFavoritePlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD48412ECC00B13A45A6DC3 /* SAJSONFavoritePlacement.swift */; };
+		4E467D29D2E51B0E5AC38A91 /* SAJSONFavoritesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49104161CA6155FB298BD439 /* SAJSONFavoritesTests.swift */; };
+		5907632E312FA58BE5B75DB6 /* SAJSONFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1735,6 +1739,9 @@
 		516E068E308F3B01007B81AA /* SADialogAuthPrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SADialogAuthPrompt.swift; sourceTree = "<group>"; };
 		516E0694308F3B24007B81AA /* SADialogAuthPromptTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SADialogAuthPromptTests.swift; sourceTree = "<group>"; };
 		516E0738308F442C007B81AA /* SADialogAuthPrompt+MySQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SADialogAuthPrompt+MySQL.swift"; sourceTree = "<group>"; };
+		029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavorites.swift; sourceTree = "<group>"; };
+		49104161CA6155FB298BD439 /* SAJSONFavoritesTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavoritesTests.swift; sourceTree = "<group>"; };
+		6AD48412ECC00B13A45A6DC3 /* SAJSONFavoritePlacement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavoritePlacement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2163,6 +2170,8 @@
 				1798F1811550175B004B0AB8 /* SPFavoritesExporter.h */,
 				1798F1821550175B004B0AB8 /* SPFavoritesExporter.m */,
 				1798F1831550175B004B0AB8 /* SPFavoritesExportProtocol.h */,
+				029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */,
+				6AD48412ECC00B13A45A6DC3 /* SAJSONFavoritePlacement.swift */,
 			);
 			name = "Import & Export";
 			path = ImportExport;
@@ -2890,6 +2899,7 @@
 				519788D030502FC700C5D23D /* SAExportOutputEncodingTests.swift */,
 				516E0694308F3B24007B81AA /* SADialogAuthPromptTests.swift */,
 				FCEF99FB5CFC7CB4FFB946BD /* SASQLExportDataTests.swift */,
+				49104161CA6155FB298BD439 /* SAJSONFavoritesTests.swift */,
 			);
 			name = "Unit Tests";
 			path = UnitTests;
@@ -3891,6 +3901,8 @@
 				222490FE1BBA3296DA12C693 /* SASQLExportData.swift in Sources */,
 				BA87366BFBEFA0424135242B /* SASQLExportDataTests.swift in Sources */,
 				0E101B8639A9D372500A794F /* SAFieldPickerSelection.swift in Sources */,
+				5907632E312FA58BE5B75DB6 /* SAJSONFavorites.swift in Sources */,
+				4E467D29D2E51B0E5AC38A91 /* SAJSONFavoritesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4260,6 +4272,8 @@
 				5451D541EF96D987B5E3AAE6 /* SADatabasePopUpButton.swift in Sources */,
 				B8D6C0CCB0FA36DFC60A6AC2 /* SASQLExportData.swift in Sources */,
 				F70B8870EA708D016AE137B5 /* SAFieldPickerSelection.swift in Sources */,
+				0E21F01532E0A4CF313ED5B7 /* SAJSONFavorites.swift in Sources */,
+				4AE4D151FC5BD3FBD68AE799 /* SAJSONFavoritePlacement.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

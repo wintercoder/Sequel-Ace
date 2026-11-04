@@ -4463,3 +4463,9 @@
 
 /* Content filter: field selector accessibility label. */
 "Filter Field" = "Filter Field";
+
+/* JSON favorites import format error */
+"Invalid JSON connection file. Expected a connection object, an array, or a Connections array." = "Invalid JSON connection file. Expected a connection object, an array, or a Connections array.";
+
+/* JSON favorites validation error. Position only; never include credential values. */
+"Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database, level1 and level2 must be strings; level2 requires level1; Port must be between 1 and 65535." = "Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database, level1 and level2 must be strings; level2 requires level1; Port must be between 1 and 65535.";
