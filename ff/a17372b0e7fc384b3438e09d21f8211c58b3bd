@@ -1,0 +1,19 @@
+Resources/Localization/en.lproj/Localizable.strings
+  s_da4b2480e75959::t_ec22de361f7849 4471,4477,4486-4490
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ffa17372b0e7fc384b3438e09d21f8211c58b3bd",
+  "prompts": {},
+  "sessions": {
+    "s_da4b2480e75959": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a5e8-3efe-7513-a417-b87831fb819d",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    }
+  }
+}
