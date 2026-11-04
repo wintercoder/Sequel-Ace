@@ -60,11 +60,12 @@ final class SAJSONFavoritesTests: XCTestCase {
 }
 
 private final class SAJSONTestKeychain: NSObject, SAKeychainProviding {
+    var reads = 0
     var stored: String?
     var savedName: String?
     func add(password: String?, name: String?, account: String?) { stored = password; savedName = name }
     func add(password: String?, name: String?, account: String?, label: String?) { add(password: password, name: name, account: account) }
-    func password(name: String?, account: String?) -> String? { stored }
+    func password(name: String?, account: String?) -> String? { reads += 1; return stored }
     func deletePassword(name: String?, account: String?) { stored = nil }
     func passwordExists(name: String?, account: String?) -> Bool { stored != nil }
     func updateItem(name: String?, account: String?, toName newName: String?, newAccount: String?, password: String?) { stored = password; savedName = newName }
@@ -126,6 +127,54 @@ extension SAJSONFavoritesTests {
         for fields in ["\"level2\":\"uat\"", "\"level1\":42", "\"level1\":\" \"", "\"level1\":null",
                        "\"level1\":\"fo\",\"level2\":false"] {
             XCTAssertThrowsError(try parse("{\"Name\":\"DB\",\"Host\":\"h\",\"User\":\"u\",\(fields)}"))
+        }
+    }
+}
+
+extension SAJSONFavoritesTests {
+    func testPlaintextExportRoundTripsNamesFoldersPasswordsAndSSLOptions() throws {
+        let original: NSDictionary = ["name":"订单库", "host":"db.example", "user":"reader", "id":1,
+                                      "database":"app", "port":"3307", "type":0, "useSSL":1,
+                                      "sslCACertFileLocation":"/tmp/ca.pem", "colorIndex":3]
+        let keychain = SAJSONTestKeychain()
+        keychain.stored = " 密码 @ : \\\n\" "
+        let data = try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: original, groupPath: ["fo", "uat"])], keychain: keychain)
+        let imported = try SAJSONFavorites.favorites(from: data)
+        XCTAssertEqual(imported[0]["name"] as? String, "订单库")
+        XCTAssertEqual(imported[0]["password"] as? String, keychain.stored)
+        XCTAssertEqual(imported[0]["_saJSONGroupPath"] as? [String], ["fo", "uat"])
+        XCTAssertEqual(imported[0]["port"] as? String, "3307")
+        XCTAssertEqual(imported[0]["useSSL"] as? Int, 1)
+        XCTAssertEqual(imported[0]["sslCACertFileLocation"] as? String, "/tmp/ca.pem")
+        XCTAssertNil(original["password"])
+        XCTAssertEqual(keychain.reads, 1)
+    }
+
+    func testExportDistinguishesMissingAndEmptyPasswords() throws {
+        let favorite: NSDictionary = ["name":"DB", "host":"h", "user":"u", "id":1, "port":""]
+        let connection = SAJSONExportConnection(favorite: favorite, groupPath: [])
+        let keychain = SAJSONTestKeychain()
+        let missing = try SAJSONFavoritesExport.data(connections: [connection], keychain: keychain)
+        XCTAssertNil(try SAJSONFavorites.favorites(from: missing)[0]["password"])
+        keychain.stored = ""
+        let empty = try SAJSONFavoritesExport.data(connections: [connection], keychain: keychain)
+        XCTAssertEqual(try SAJSONFavorites.favorites(from: empty)[0]["password"] as? String, "")
+    }
+
+    func testUnsupportedExportsDoNotReadPasswords() {
+        let keychain = SAJSONTestKeychain()
+        for type: Any in [NSNumber(value: 2), "2"] {
+            let favorite: NSDictionary = ["name":"SSH", "host":"h", "user":"u", "type":type]
+            XCTAssertThrowsError(try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: favorite, groupPath: [])], keychain: keychain))
+        }
+        let favorite: NSDictionary = ["name":"DB", "host":"h", "user":"u", "type":0]
+        XCTAssertThrowsError(try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: favorite, groupPath: ["a", "b", "c"])], keychain: keychain))
+        XCTAssertEqual(keychain.reads, 0)
+    }
+
+    func testImportedOptionsCannotOverrideIdentityOrInjectCredentials() {
+        for option in ["\"password\":\"secret\"", "\"id\":999", "\"type\":2", "\"useSSL\":{}"] {
+            XCTAssertThrowsError(try parse("{\"Name\":\"DB\",\"Host\":\"h\",\"User\":\"u\",\"Options\":{\(option)}}"))
         }
     }
 }

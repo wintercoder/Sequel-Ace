@@ -74,6 +74,14 @@ import CoreFoundation
                 "name": name, "host": host, "user": user, "port": port,
                 "database": try string("database"), "type": 0, "colorIndex": -1
             ])
+            if let rawOptions = fields["options"] {
+                guard let options = rawOptions as? [String: Any] else { throw invalidFile(index + 1) }
+                for (key, value) in options {
+                    guard SAJSONFavoritesExport.optionKeys.contains(key),
+                          value is String || value is NSNumber else { throw invalidFile(index + 1) }
+                    favorite[key] = value
+                }
+            }
             if fields["password"] != nil { favorite["password"] = try string("password") }
             favorite["_saJSONGroupPath"] = [level1, level2].filter { !$0.isEmpty }
             return favorite

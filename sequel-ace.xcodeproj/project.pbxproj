@@ -795,6 +795,9 @@
 		4AE4D151FC5BD3FBD68AE799 /* SAJSONFavoritePlacement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD48412ECC00B13A45A6DC3 /* SAJSONFavoritePlacement.swift */; };
 		4E467D29D2E51B0E5AC38A91 /* SAJSONFavoritesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49104161CA6155FB298BD439 /* SAJSONFavoritesTests.swift */; };
 		5907632E312FA58BE5B75DB6 /* SAJSONFavorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = 029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */; };
+		50573DBEE5450BFEDD380411 /* SAJSONFavoritesExportPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D31AB52D2796CB18EE04A0 /* SAJSONFavoritesExportPanel.swift */; };
+		9BA21550ED8DC26620ED7BD2 /* SAJSONFavoritesExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E52F1CFE917E0C0D105AAB /* SAJSONFavoritesExport.swift */; };
+		AF18CA4857B84BD958185506 /* SAJSONFavoritesExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E52F1CFE917E0C0D105AAB /* SAJSONFavoritesExport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1742,6 +1745,8 @@
 		029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavorites.swift; sourceTree = "<group>"; };
 		49104161CA6155FB298BD439 /* SAJSONFavoritesTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavoritesTests.swift; sourceTree = "<group>"; };
 		6AD48412ECC00B13A45A6DC3 /* SAJSONFavoritePlacement.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavoritePlacement.swift; sourceTree = "<group>"; };
+		45E52F1CFE917E0C0D105AAB /* SAJSONFavoritesExport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavoritesExport.swift; sourceTree = "<group>"; };
+		54D31AB52D2796CB18EE04A0 /* SAJSONFavoritesExportPanel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SAJSONFavoritesExportPanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2172,6 +2177,8 @@
 				1798F1831550175B004B0AB8 /* SPFavoritesExportProtocol.h */,
 				029F89B058CFAEA05FF4C521 /* SAJSONFavorites.swift */,
 				6AD48412ECC00B13A45A6DC3 /* SAJSONFavoritePlacement.swift */,
+				45E52F1CFE917E0C0D105AAB /* SAJSONFavoritesExport.swift */,
+				54D31AB52D2796CB18EE04A0 /* SAJSONFavoritesExportPanel.swift */,
 			);
 			name = "Import & Export";
 			path = ImportExport;
@@ -3903,6 +3910,7 @@
 				0E101B8639A9D372500A794F /* SAFieldPickerSelection.swift in Sources */,
 				5907632E312FA58BE5B75DB6 /* SAJSONFavorites.swift in Sources */,
 				4E467D29D2E51B0E5AC38A91 /* SAJSONFavoritesTests.swift in Sources */,
+				9BA21550ED8DC26620ED7BD2 /* SAJSONFavoritesExport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4274,6 +4282,8 @@
 				F70B8870EA708D016AE137B5 /* SAFieldPickerSelection.swift in Sources */,
 				0E21F01532E0A4CF313ED5B7 /* SAJSONFavorites.swift in Sources */,
 				4AE4D151FC5BD3FBD68AE799 /* SAJSONFavoritePlacement.swift in Sources */,
+				AF18CA4857B84BD958185506 /* SAJSONFavoritesExport.swift in Sources */,
+				50573DBEE5450BFEDD380411 /* SAJSONFavoritesExportPanel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

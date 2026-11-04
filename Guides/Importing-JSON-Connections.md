@@ -57,3 +57,27 @@ Cancelling or skipping does not save that connection's imported password.
 To distribute a standalone build, build the macOS app using Xcode and package the
 resulting `.app` in a DMG. This change does not create a DMG or alter signing,
 notarization, or release automation.
+
+## Exporting JSON with plaintext passwords
+
+Select connections or folders and choose **Export…**. In the format chooser,
+select **JSON With Plaintext Passwords**, then save the `.json` file. The default
+**Plist Without Passwords** choice keeps the original password-free plist export.
+
+JSON export reads saved database passwords from macOS Keychain only after the
+save panel is accepted. A missing or inaccessible password is omitted; an actual
+empty password is exported as `"Password": ""`. Unsaved password edits in the
+connection form are not exported. Export does not change saved connections or
+Keychain entries.
+
+Exported JSON uses the same `Name`, `Host`, `Port`, `User`, `Password`, `Database`,
+`level1`, and `level2` fields as import. Standard TCP/IP options such as SSL and
+time zone settings are retained in an optional `Options` object, which the JSON
+importer also accepts. SSL certificate/key paths reference local files; their
+contents are not embedded. A selected connection keeps its ancestor folder path.
+Selecting both a folder and its descendants exports each connection once.
+
+JSON export currently supports standard TCP/IP connections and at most two
+folder levels. Other connection types (SSH, socket, AWS IAM, Vault) or deeper
+folders cause an error before writing, so no partial export is produced. Use the
+existing plist export to preserve those configurations without passwords.

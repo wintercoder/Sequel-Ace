@@ -2712,6 +2712,14 @@ sslCACertFileLocationEnabled:(sslCACertFileLocationEnabled != NSControlStateValu
  */
 - (IBAction)exportFavorites:(id)sender
 {
+    [SAJSONFavoritesExportPanel presentForNodes:[self selectedFavoriteNodes]
+                                       window:[dbDocument parentWindowControllerWindow]
+                                     keychain:keychain
+                                  plistExport:^{ [self exportFavoritesAsPlist:sender]; }];
+}
+
+- (void)exportFavoritesAsPlist:(id)sender
+{
     // additional empty selection check
     if(![[self selectedFavoriteNodes] count]) return;
 
