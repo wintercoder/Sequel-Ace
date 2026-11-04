@@ -23,7 +23,7 @@ enum SAJSONFavoritesExport {
             let rawType = connection.favorite["type"]
             let type = (rawType as? NSNumber)?.intValue ?? (rawType as? NSString)?.integerValue ?? 0
             guard type == 0,
-                  connection.groupPath.count <= 2 else { throw failure() }
+                  connection.groupPath.count <= SAJSONFavorites.maxGroupDepth else { throw failure() }
         }
         var records: [[String: Any]] = []
         for connection in connections {
@@ -60,7 +60,7 @@ enum SAJSONFavoritesExport {
     private static func failure() -> NSError {
         NSError(domain: NSCocoaErrorDomain, code: NSFileWriteInvalidFileNameError,
                 userInfo: [NSLocalizedDescriptionKey: NSLocalizedString(
-                    "JSON export supports standard TCP/IP connections in up to two folder levels. Use plist export for other connection types or deeper folders.",
+                    "JSON export supports standard TCP/IP connections in up to five folder levels. Use plist export for other connection types or deeper folders.",
                     comment: "Unsupported connection type or folder depth in JSON export")])
     }
 }

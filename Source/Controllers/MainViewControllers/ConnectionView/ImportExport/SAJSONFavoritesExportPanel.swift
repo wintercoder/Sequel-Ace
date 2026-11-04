@@ -8,7 +8,7 @@ import UniformTypeIdentifiers
         let alert = NSAlert()
         alert.messageText = NSLocalizedString("Export Favorites", comment: "Favorites export format chooser title")
         alert.informativeText = NSLocalizedString(
-            "Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to two folder levels. Connections without a retrievable password are exported without the Password field.",
+            "Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to five folder levels. Connections without a retrievable password are exported without the Password field.",
             comment: "Favorites export format and plaintext password explanation")
         alert.addButton(withTitle: NSLocalizedString("Plist Without Passwords", comment: "Legacy favorites export choice"))
         alert.addButton(withTitle: NSLocalizedString("JSON With Plaintext Passwords", comment: "JSON plaintext favorites export choice"))

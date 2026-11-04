@@ -33,12 +33,16 @@ connection's display name. `Port` accepts an integer or integer string from 1 to
 65535 and defaults to 3306. `Database` and `Password` are optional strings.
 This format creates standard TCP/IP MySQL/MariaDB connections.
 
-Optional string fields `level1` and `level2` select the folder path. For example,
+Optional string fields `level1` through `level5` select up to five folder levels. For example,
 `"level1": "fo", "level2": "uat"` places the connection inside `fo/uat`.
 Existing folders at that path are reused; missing folders are created. With only
-`level1`, the connection is placed in that top-level folder. Without either field,
-new connections go in the root. `level2` requires a nonempty `level1`. Blank
-whitespace-only folder names and non-string values are rejected.
+`level1`, the connection is placed in that top-level folder. Without any folder fields,
+new connections go in the root. Levels must be consecutive: `level3` requires
+nonempty `level1` and `level2`, and the same rule applies through `level5`. Blank
+whitespace-only folder names, non-string values, gaps, and levels above five are
+rejected. For example, `level1=staging`, `level2=id`, `level3=finance`,
+`level4=archive`, `level5=2026` places the connection in
+`staging/id/finance/archive/2026`.
 When updating a duplicate, a supplied folder path moves it into that folder;
 omitting the folder fields keeps its existing location.
 
@@ -71,13 +75,13 @@ connection form are not exported. Export does not change saved connections or
 Keychain entries.
 
 Exported JSON uses the same `Name`, `Host`, `Port`, `User`, `Password`, `Database`,
-`level1`, and `level2` fields as import. Standard TCP/IP options such as SSL and
+`level1` through `level5` fields as import. Standard TCP/IP options such as SSL and
 time zone settings are retained in an optional `Options` object, which the JSON
 importer also accepts. SSL certificate/key paths reference local files; their
 contents are not embedded. A selected connection keeps its ancestor folder path.
 Selecting both a folder and its descendants exports each connection once.
 
-JSON export currently supports standard TCP/IP connections and at most two
+JSON export currently supports standard TCP/IP connections and at most five
 folder levels. Other connection types (SSH, socket, AWS IAM, Vault) or deeper
 folders cause an error before writing, so no partial export is produced. Use the
 existing plist export to preserve those configurations without passwords.

@@ -168,7 +168,7 @@ extension SAJSONFavoritesTests {
             XCTAssertThrowsError(try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: favorite, groupPath: [])], keychain: keychain))
         }
         let favorite: NSDictionary = ["name":"DB", "host":"h", "user":"u", "type":0]
-        XCTAssertThrowsError(try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: favorite, groupPath: ["a", "b", "c"])], keychain: keychain))
+        XCTAssertThrowsError(try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: favorite, groupPath: ["a", "b", "c", "d", "e", "f"])], keychain: keychain))
         XCTAssertEqual(keychain.reads, 0)
     }
 
@@ -176,5 +176,52 @@ extension SAJSONFavoritesTests {
         for option in ["\"password\":\"secret\"", "\"id\":999", "\"type\":2", "\"useSSL\":{}"] {
             XCTAssertThrowsError(try parse("{\"Name\":\"DB\",\"Host\":\"h\",\"User\":\"u\",\"Options\":{\(option)}}"))
         }
+    }
+}
+
+extension SAJSONFavoritesTests {
+    func testImportsEverySupportedFolderDepth() throws {
+        let path = ["staging", "id", "finance", "archive", "2026"]
+        for depth in 1...5 {
+            var record: [String: Any] = ["Name": "DB", "Host": "h", "User": "u", "Password": "secret"]
+            for index in 0..<depth { record["Level\(index + 1)"] = path[index] }
+            let favorites = try SAJSONFavorites.favorites(from: JSONSerialization.data(withJSONObject: [record]))
+            favorites[0]["id"] = NSNumber(value: depth)
+            let credentials = SAJSONImportCredentials(items: favorites)
+            XCTAssertEqual(credentials.groupPath(for: favorites[0]), Array(path.prefix(depth)))
+            XCTAssertEqual(credentials.password(for: favorites[0]), "secret")
+            XCTAssertNil(favorites[0]["_saJSONGroupPath"])
+        }
+    }
+
+    func testRejectsGapsAndMalformedDeeperFolderLevels() throws {
+        for level in 3...5 {
+            var record: [String: Any] = ["Name": "DB", "Host": "h", "User": "u"]
+            for previous in 1..<level { record["level\(previous)"] = "folder\(previous)" }
+            for invalid: Any in [42, true, NSNull(), " \n "] {
+                record["level\(level)"] = invalid
+                XCTAssertThrowsError(try SAJSONFavorites.favorites(from: JSONSerialization.data(withJSONObject: [record])))
+            }
+            record["level\(level)"] = "child"
+            record.removeValue(forKey: "level\(level - 1)")
+            XCTAssertThrowsError(try SAJSONFavorites.favorites(from: JSONSerialization.data(withJSONObject: [record])))
+            record["level\(level - 1)"] = ""
+            XCTAssertThrowsError(try SAJSONFavorites.favorites(from: JSONSerialization.data(withJSONObject: [record])))
+        }
+        XCTAssertThrowsError(try parse("{\"Name\":\"DB\",\"Host\":\"h\",\"User\":\"u\",\"level6\":\"too deep\"}"))
+    }
+
+    func testFiveLevelPlaintextExportRoundTrips() throws {
+        let favorite: NSDictionary = ["name": "DB", "host": "h", "user": "u", "id": 1]
+        let path = ["staging", "id", "finance", "archive", "2026"]
+        let keychain = SAJSONTestKeychain()
+        keychain.stored = "secret"
+        let data = try SAJSONFavoritesExport.data(connections: [SAJSONExportConnection(favorite: favorite, groupPath: path)], keychain: keychain)
+        let favorites = try SAJSONFavorites.favorites(from: data)
+        XCTAssertEqual(favorites[0]["_saJSONGroupPath"] as? [String], path)
+        XCTAssertEqual(favorites[0]["password"] as? String, "secret")
+        let records = try XCTUnwrap(JSONSerialization.jsonObject(with: data) as? [[String: Any]])
+        XCTAssertEqual(records[0]["level5"] as? String, "2026")
+        XCTAssertNil(records[0]["level6"])
     }
 }

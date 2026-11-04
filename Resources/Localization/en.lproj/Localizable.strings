@@ -4468,13 +4468,13 @@
 "Invalid JSON connection file. Expected a connection object, an array, or a Connections array." = "Invalid JSON connection file. Expected a connection object, an array, or a Connections array.";
 
 /* JSON favorites validation error. Position only; never include credential values. */
-"Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database, level1 and level2 must be strings; level2 requires level1; Port must be between 1 and 65535." = "Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database, level1 and level2 must be strings; level2 requires level1; Port must be between 1 and 65535.";
+"Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database and level1 through level5 must be strings; folder levels must be consecutive and cannot exceed five; Port must be between 1 and 65535." = "Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database and level1 through level5 must be strings; folder levels must be consecutive and cannot exceed five; Port must be between 1 and 65535.";
 
 /* Favorites export format chooser title */
 "Export Favorites" = "Export Favorites";
 
 /* Favorites export format and plaintext password explanation */
-"Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to two folder levels. Connections without a retrievable password are exported without the Password field." = "Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to two folder levels. Connections without a retrievable password are exported without the Password field.";
+"Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to five folder levels. Connections without a retrievable password are exported without the Password field." = "Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to five folder levels. Connections without a retrievable password are exported without the Password field.";
 
 /* Legacy favorites export choice */
 "Plist Without Passwords" = "Plist Without Passwords";
@@ -4483,4 +4483,4 @@
 "JSON With Plaintext Passwords" = "JSON With Plaintext Passwords";
 
 /* Unsupported JSON favorites export content */
-"JSON export supports standard TCP/IP connections in up to two folder levels. Use plist export for other connection types or deeper folders." = "JSON export supports standard TCP/IP connections in up to two folder levels. Use plist export for other connection types or deeper folders.";
+"JSON export supports standard TCP/IP connections in up to five folder levels. Use plist export for other connection types or deeper folders." = "JSON export supports standard TCP/IP connections in up to five folder levels. Use plist export for other connection types or deeper folders.";

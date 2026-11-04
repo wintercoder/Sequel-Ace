@@ -3,6 +3,8 @@ import CoreFoundation
 
 /// JSON credentials remain transient until the user accepts the import.
 @objc final class SAJSONFavorites: NSObject {
+    static let maxGroupDepth = 5
+
     @objc(favoritesFromData:error:)
     static func favorites(from data: Data) throws -> [NSMutableDictionary] {
         let root: Any
@@ -62,11 +64,20 @@ import CoreFoundation
                 guard let number = Int(port), (1...65535).contains(number) else { throw invalidFile(index + 1) }
                 port = String(number)
             }
-            let level1 = try string("level1")
-            let level2 = try string("level2")
-            guard level2.isEmpty || !level1.isEmpty,
-                  level1.isEmpty || !level1.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
-                  level2.isEmpty || !level2.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            // Folder levels must form a contiguous path; never flatten a gap.
+            var groupPath: [String] = []
+            for level in 1...maxGroupDepth {
+                let folder = try string("level\(level)")
+                if folder.isEmpty { continue }
+                guard groupPath.count == level - 1,
+                      !folder.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                    throw invalidFile(index + 1)
+                }
+                groupPath.append(folder)
+            }
+            guard !fields.keys.contains(where: {
+                $0.hasPrefix("level") && (Int($0.dropFirst(5)) ?? 0) > maxGroupDepth
+            }) else {
                 throw invalidFile(index + 1)
             }
             // Keep in sync with SPConstants.m: passwords are NOT persisted favorite keys.
@@ -83,7 +94,7 @@ import CoreFoundation
                 }
             }
             if fields["password"] != nil { favorite["password"] = try string("password") }
-            favorite["_saJSONGroupPath"] = [level1, level2].filter { !$0.isEmpty }
+            favorite["_saJSONGroupPath"] = groupPath
             return favorite
         }
     }
@@ -91,7 +102,7 @@ import CoreFoundation
     private static func invalidFile(_ row: Int = 0) -> NSError {
         let message = row == 0
             ? NSLocalizedString("Invalid JSON connection file. Expected a connection object, an array, or a Connections array.", comment: "JSON favorites import format error")
-            : String(format: NSLocalizedString("Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database, level1 and level2 must be strings; level2 requires level1; Port must be between 1 and 65535.", comment: "JSON favorites import validation error; position only, never credential values"), row)
+            : String(format: NSLocalizedString("Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database and level1 through level5 must be strings; folder levels must be consecutive and cannot exceed five; Port must be between 1 and 65535.", comment: "JSON favorites import validation error; position only, never credential values"), row)
         return NSError(domain: NSCocoaErrorDomain, code: NSFileReadCorruptFileError,
                        userInfo: [NSLocalizedDescriptionKey: message])
     }
