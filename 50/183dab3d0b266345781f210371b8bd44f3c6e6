@@ -1,0 +1,38 @@
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavorites.swift
+  s_da4b2480e75959::t_144b4b34678f92 6-7,67-80,97,105
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavoritesExport.swift
+  s_da4b2480e75959::t_144b4b34678f92 26,63
+UnitTests/SAJSONFavoritesTests.swift
+  s_da4b2480e75959::t_144b4b34678f92 171,181-226
+  s_448279e723a9a4::t_67e74afb786458 227
+Guides/Importing-JSON-Connections.md
+  s_da4b2480e75959::t_1b66eb6a222347 36,39-45,78,84
+Resources/Localization/en.lproj/Localizable.strings
+  s_da4b2480e75959::t_1b66eb6a222347 4471,4477,4486
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavoritesExportPanel.swift
+  s_da4b2480e75959::t_144b4b34678f92 11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "50183dab3d0b266345781f210371b8bd44f3c6e6",
+  "prompts": {},
+  "sessions": {
+    "s_448279e723a9a4": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a596-3447-7a81-9c0b-8353c15c5ca0",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    },
+    "s_da4b2480e75959": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a5e8-3efe-7513-a417-b87831fb819d",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    }
+  }
+}
