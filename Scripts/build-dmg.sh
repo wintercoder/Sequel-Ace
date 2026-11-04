@@ -24,11 +24,11 @@ xcodebuild archive \
   -archivePath "$archive_path" \
   'ARCHS=arm64 x86_64' ONLY_ACTIVE_ARCH=NO \
   CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
-  2>&1 | tee build/archive.log
+  2>&1 | tee build/archive.log | tail -n 80
 
 app_path="$archive_path/Products/Applications/Sequel Ace.app"
 test -d "$app_path"
-lipo -verify_arch arm64 x86_64 "$app_path/Contents/MacOS/Sequel Ace"
+lipo "$app_path/Contents/MacOS/Sequel Ace" -verify_arch arm64 x86_64
 
 # Apple silicon needs valid local code signatures. Ad-hoc signing requires no
 # certificate and provides no Developer ID or notarization trust. Sign nested
