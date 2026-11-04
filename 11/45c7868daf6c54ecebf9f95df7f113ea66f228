@@ -1,0 +1,45 @@
+Resources/Localization/en.lproj/Localizable.strings
+  s_da4b2480e75959::t_5b90eac7c0403d 4466-4470
+  s_da4b2480e75959::t_423b3a989bf687 4471
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavoritePlacement.swift
+  s_da4b2480e75959::t_1a0f9d4f6e56da 15-16,23
+  s_da4b2480e75959::t_423b3a989bf687 1-14,17-22,24-34
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SPFavoritesImporter.m
+  s_da4b2480e75959::t_5b90eac7c0403d 33,76-83
+UnitTests/SAJSONFavoritesTests.swift
+  s_da4b2480e75959::t_5b90eac7c0403d 1-60
+  s_da4b2480e75959::t_b7d9b4a738c354 61-106
+  s_da4b2480e75959::t_1e6bea3b7428da 107-131
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavorites.swift
+  s_da4b2480e75959::t_0ae165e440231d 1-64,72-77,79-85,87-94,96-104,106-110,115,122-123,138-143
+  s_da4b2480e75959::t_423b3a989bf687 65-71,78,86,95,111-114,116-121
+  s_da4b2480e75959::t_44f0c5efea5896 105
+  s_da4b2480e75959::t_98ebacf2ac27fb 124-137
+Source/Controllers/MainViewControllers/ConnectionView/SPConnectionController.m
+  s_da4b2480e75959::t_423b3a989bf687 4547,4558,4593
+  s_da4b2480e75959::t_5b90eac7c0403d 2277,4464-4465,4544
+  s_da4b2480e75959::t_98ebacf2ac27fb 4546,4559,4594
+Guides/Importing-JSON-Connections.md
+  s_da4b2480e75959::t_1e6bea3b7428da 14-15,35-43
+  s_da4b2480e75959::t_44f0c5efea5896 1-13,16-34,44-59
+sequel-ace.xcodeproj/project.pbxproj
+  s_da4b2480e75959::t_f9450799a9939f 794,796-797,1742-1743
+  s_da4b2480e75959::t_1e6bea3b7428da 795,1744,2174,4276
+  s_da4b2480e75959::t_e223d0c10c4dd9 2173,2902,3904-3905,4275
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1145c7868daf6c54ecebf9f95df7f113ea66f228",
+  "prompts": {},
+  "sessions": {
+    "s_da4b2480e75959": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a5e8-3efe-7513-a417-b87831fb819d",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    }
+  }
+}
