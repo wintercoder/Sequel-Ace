@@ -1,0 +1,36 @@
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavoritesExport.swift
+  s_da4b2480e75959::t_806453f31a3e6a 1-22,26-66
+  s_da4b2480e75959::t_cd78a9c792b503 23-25
+Resources/Localization/en.lproj/Localizable.strings
+  s_da4b2480e75959::t_cd78a9c792b503 4472-4486
+UnitTests/SAJSONFavoritesTests.swift
+  s_da4b2480e75959::t_cd78a9c792b503 63,68,133-179
+  s_da4b2480e75959::t_fe040b7ae4a888 180
+Source/Controllers/MainViewControllers/ConnectionView/SPConnectionController.m
+  s_da4b2480e75959::t_806453f31a3e6a 2715-2721
+  s_da4b2480e75959::t_b12fb49bd83083 2714
+Guides/Importing-JSON-Connections.md
+  s_da4b2480e75959::t_a9e96306453dd9 60-83
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavoritesExportPanel.swift
+  s_da4b2480e75959::t_806453f31a3e6a 1-66
+Source/Controllers/MainViewControllers/ConnectionView/ImportExport/SAJSONFavorites.swift
+  s_da4b2480e75959::t_806453f31a3e6a 77-84
+sequel-ace.xcodeproj/project.pbxproj
+  s_da4b2480e75959::t_15682d271f2d2d 798-800,1748-1749,2180-2181,3913,4285-4286
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8933dcf8695c0cbb06a3b619efc4958c3271f374",
+  "prompts": {},
+  "sessions": {
+    "s_da4b2480e75959": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a5e8-3efe-7513-a417-b87831fb819d",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    }
+  }
+}
