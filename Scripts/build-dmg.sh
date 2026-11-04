@@ -24,6 +24,7 @@ xcodebuild archive \
   -archivePath "$archive_path" \
   'ARCHS=arm64 x86_64' ONLY_ACTIVE_ARCH=NO \
   CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO \
+  GENERATE_PKGINFO_FILE=NO \
   2>&1 | tee build/archive.log | tail -n 80
 
 app_path="$archive_path/Products/Applications/Sequel Ace.app"
