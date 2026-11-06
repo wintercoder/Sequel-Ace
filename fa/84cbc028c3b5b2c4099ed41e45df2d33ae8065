@@ -1,0 +1,29 @@
+UnitTests/SAFavoriteSearchMatcherTests.swift
+  s_da4b2480e75959::t_469a468601fd95 128-133
+Source/Controllers/MainViewControllers/ConnectionView/SAFavoriteDeletionPrompt.swift
+  s_da4b2480e75959::t_469a468601fd95 37-58
+Source/Controllers/MainViewControllers/ConnectionView/SAFavoriteSearchTreeWalker.swift
+  s_da4b2480e75959::t_469a468601fd95 68-79
+Resources/Localization/en.lproj/Localizable.strings
+  s_da4b2480e75959::t_469a468601fd95 4492-4495
+Source/Controllers/MainViewControllers/ConnectionView/SPConnectionController.m
+  s_da4b2480e75959::t_469a468601fd95 1962-1976,1978-1982,4425-4428,4432
+UnitTests/SAFavoriteDeletionPromptTests.swift
+  s_da4b2480e75959::t_469a468601fd95 53-74
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fa84cbc028c3b5b2c4099ed41e45df2d33ae8065",
+  "prompts": {},
+  "sessions": {
+    "s_da4b2480e75959": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a1a5e8-3efe-7513-a417-b87831fb819d",
+        "model": "gpt-6.1-sol"
+      },
+      "human_author": "Yuguang Han <yuguang.han@shopee.com>"
+    }
+  }
+}
