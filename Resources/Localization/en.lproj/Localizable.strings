@@ -4489,3 +4489,7 @@
 "Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database and level1 through level5 must be strings; folder levels must be consecutive and cannot exceed five; Port must be between 1 and 65535." = "Invalid JSON connection at position %ld. Name, Host and User must be nonempty strings; Password, Database and level1 through level5 must be strings; folder levels must be consecutive and cannot exceed five; Port must be between 1 and 65535.";
 "Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to five folder levels. Connections without a retrievable password are exported without the Password field." = "Choose an export format. JSON includes retrievable saved passwords as plaintext and preserves up to five folder levels. Connections without a retrievable password are exported without the Password field.";
 "JSON export supports standard TCP/IP connections in up to five folder levels. Use plist export for other connection types or deeper folders." = "JSON export supports standard TCP/IP connections in up to five folder levels. Use plist export for other connection types or deeper folders.";
+
+/* Confirmation for deleting multiple selected favorites or folders. */
+"Delete %ld selected items?" = "Delete %ld selected items?";
+"All selected groups and favorites, including their contents, will be deleted. This operation cannot be undone." = "All selected groups and favorites, including their contents, will be deleted. This operation cannot be undone.";

@@ -34,6 +34,28 @@ import Foundation
         self.informativeText = informativeText
     }
 
+    /// Discard descendants covered by an already selected ancestor.
+    static func deletionRoots<Node: AnyObject>(_ nodes: [Node], parent: (Node) -> Node?) -> [Node] {
+        let selected = Set(nodes.map(ObjectIdentifier.init))
+        return nodes.filter { node in
+            var ancestor = parent(node)
+            while let current = ancestor {
+                if selected.contains(ObjectIdentifier(current)) { return false }
+                ancestor = parent(current)
+            }
+            return true
+        }
+    }
+
+    @objc(promptForSelectionCount:)
+    static func prompt(selectionCount: Int) -> SAFavoriteDeletionPrompt {
+        SAFavoriteDeletionPrompt(
+            needsConfirmation: true,
+            title: String(format: NSLocalizedString("Delete %ld selected items?", comment: "delete multiple favorites title"), selectionCount),
+            informativeText: NSLocalizedString("All selected groups and favorites, including their contents, will be deleted. This operation cannot be undone.", comment: "delete multiple favorites confirmation")
+        )
+    }
+
     /// Builds the prompt for the selected node. `name` is the favorite's
     /// name or the group's node name; `childCount` only matters for groups.
     @objc(promptForGroup:name:childCount:)

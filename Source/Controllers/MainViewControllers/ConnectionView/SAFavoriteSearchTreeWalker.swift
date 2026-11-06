@@ -65,3 +65,15 @@ enum SAFavoriteSearchTreeWalker {
         return false
     }
 }
+
+/// App-only bridge for the legacy connection controller's deletion action.
+@objc final class SAFavoriteDeletionSelection: NSObject {
+    @objc(deletionRootsInOutlineView:root:quickConnect:)
+    static func deletionRoots(in outlineView: NSOutlineView, root: SPTreeNode,
+                              quickConnect: SPTreeNode) -> [SPTreeNode] {
+        let nodes = outlineView.selectedRowIndexes.compactMap {
+            outlineView.item(atRow: $0) as? SPTreeNode
+        }.filter { $0 !== root && $0 !== quickConnect && $0.parent != nil }
+        return SAFavoriteDeletionPrompt.deletionRoots(nodes) { $0.parent as? SPTreeNode }
+    }
+}

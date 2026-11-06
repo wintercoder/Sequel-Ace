@@ -50,4 +50,26 @@ final class SAFavoriteDeletionPromptTests: XCTestCase {
         XCTAssertTrue(prompt.needsConfirmation)
         XCTAssertEqual(prompt.title, "Delete favorite ''?")
     }
+    func testMultipleSelectionRequiresConfirmation() {
+        let prompt = SAFavoriteDeletionPrompt.prompt(selectionCount: 3)
+        XCTAssertTrue(prompt.needsConfirmation)
+        XCTAssertTrue(prompt.title.contains("3"))
+        XCTAssertFalse(prompt.informativeText.isEmpty)
+    }
+
+    func testSelectedDescendantsAreDeletedOnlyThroughTheirAncestor() {
+        final class Node {
+            var parent: Node?
+            init(_ parent: Node? = nil) { self.parent = parent }
+        }
+        let group = Node()
+        let child = Node(group)
+        let grandchild = Node(child)
+        let sibling = Node()
+        let roots = SAFavoriteDeletionPrompt.deletionRoots([grandchild, group, child, sibling]) { $0.parent }
+        XCTAssertEqual(roots.count, 2)
+        XCTAssertTrue(roots[0] === group)
+        XCTAssertTrue(roots[1] === sibling)
+        XCTAssertTrue(SAFavoriteDeletionPrompt.deletionRoots([Node]()) { $0.parent }.isEmpty)
+    }
 }

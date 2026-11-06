@@ -125,4 +125,10 @@ final class SAFavoriteSearchMatcherTests: XCTestCase {
         let matcher2 = SAFavoriteSearchMatcher(query: "tion-d")
         XCTAssertTrue(matcher2.matches(name: "Production-DB", host: ""))
     }
+    func testSpaceSeparatedKeywordsDoNotRequireAnExactPhrase() {
+        let matcher = SAFavoriteSearchMatcher(query: "  a   b  ")
+        XCTAssertTrue(matcher.matches(name: "b_database_a", host: ""))
+        XCTAssertFalse(matcher.matches(name: "alpha", host: ""))
+        XCTAssertFalse(matcher.matches(name: "bee", host: ""))
+    }
 }

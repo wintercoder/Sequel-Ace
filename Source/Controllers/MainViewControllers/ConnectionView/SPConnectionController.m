@@ -1959,26 +1959,27 @@ sslCACertFileLocationEnabled:(sslCACertFileLocationEnabled != NSControlStateValu
  */
 - (IBAction)removeNode:(id)sender
 {
-    if ([favoritesOutlineView numberOfSelectedRows] == 1) {
+    NSArray<SPTreeNode *> *nodes = [SAFavoriteDeletionSelection deletionRootsInOutlineView:favoritesOutlineView
+                                                                                   root:favoritesRoot
+                                                                           quickConnect:quickConnectItem];
+    if (![nodes count]) return;
 
-        SPTreeNode *node = [self selectedFavoriteNode];
-
-        // The favorite/group/empty-group wording (and whether to ask at all)
-        // lives in SAFavoriteDeletionPrompt, pinned by unit tests.
-        NSString *nodeDisplayName = [node isGroup]
-            ? [[node representedObject] nodeName]
-            : [[[node representedObject] nodeFavorite] objectForKey:SPFavoriteNameKey];
-        SAFavoriteDeletionPrompt *prompt = [SAFavoriteDeletionPrompt promptForGroup:[node isGroup]
-                                                                               name:nodeDisplayName
-                                                                         childCount:[[node childNodes] count]];
-
-        if (prompt.needsConfirmation) {
-            [NSAlert createDefaultAlertWithTitle:prompt.title message:prompt.informativeText primaryButtonTitle:NSLocalizedString(@"Delete", @"delete button") primaryButtonHandler:^{
-                [self _removeNode:[self selectedFavoriteNode]];
-            } cancelButtonHandler:nil];
-        } else {
-            [self _removeNode:node];
+    SPTreeNode *node = [nodes firstObject];
+    NSString *nodeDisplayName = [node isGroup]
+        ? [[node representedObject] nodeName]
+        : [[[node representedObject] nodeFavorite] objectForKey:SPFavoriteNameKey];
+    SAFavoriteDeletionPrompt *prompt = [nodes count] > 1
+        ? [SAFavoriteDeletionPrompt promptForSelectionCount:[nodes count]]
+        : [SAFavoriteDeletionPrompt promptForGroup:[node isGroup] name:nodeDisplayName childCount:[[node childNodes] count]];
+    void (^removeSelection)(void) = ^{
+        for (SPTreeNode *selectedNode in nodes) {
+            [self _removeNode:selectedNode];
         }
+    };
+    if (prompt.needsConfirmation) {
+        [NSAlert createDefaultAlertWithTitle:prompt.title message:prompt.informativeText primaryButtonTitle:NSLocalizedString(@"Delete", @"delete button") primaryButtonHandler:removeSelection cancelButtonHandler:nil];
+    } else {
+        removeSelection();
     }
 }
 
@@ -4421,10 +4422,14 @@ static NSComparisonResult _compareFavoritesUsingKey(id favorite1, id favorite2, 
         return (selectedRows == 1) && (![node isGroup]);
     }
 
+    if (action == @selector(removeNode:)) {
+        return [[SAFavoriteDeletionSelection deletionRootsInOutlineView:favoritesOutlineView root:favoritesRoot quickConnect:quickConnectItem] count] > 0;
+    }
+
     if (node == quickConnectItem) return NO;
 
     // Remove/rename the selected node
-    if (action == @selector(removeNode:) || action == @selector(renameNode:)) {
+    if (action == @selector(renameNode:)) {
         return selectedRows == 1;
     }
 
